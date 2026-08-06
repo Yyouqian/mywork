@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>张三 · 个人主页</title>
+    <!-- Font Awesome 图标库 (免费) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ----- 全局重置 & 变量 ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #f4f7fc;
+            --card-bg: #ffffff;
+            --text: #1e2a3a;
+            --accent: #2563eb;
+            --gray: #6b7a8f;
+            --shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+            --radius: 20px;
+            --transition: 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 2rem 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* ----- 卡片主体 ----- */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2.5rem 2rem;
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        /* ----- 头部：头像 + 信息 ----- */
+        .profile {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            font-weight: 600;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+        }
+
+        .profile-info h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .profile-info .tagline {
+            font-size: 1.15rem;
+            color: var(--gray);
+            margin: 0.25rem 0 0.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e6edfd;
+            color: var(--accent);
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* ----- 社交图标 ----- */
+        .socials {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .socials a {
+            color: var(--gray);
+            font-size: 1.5rem;
+            transition: color var(--transition), transform var(--transition);
+        }
+
+        .socials a:hover {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+
+        /* ----- 关于我 ----- */
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2rem 0 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title i {
+            color: var(--accent);
+            font-size: 1.3rem;
+        }
+
+        .about-text {
+            color: #334155;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ----- 技能标签 ----- */
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin: 0.8rem 0 1.2rem;
+        }
+
+        .skill-tag {
+            background: #f1f5f9;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1e293b;
+            transition: background var(--transition), color var(--transition);
+            cursor: default;
+        }
+
+        .skill-tag:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* ----- 项目网格 ----- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 1.2rem 0 0.5rem;
+        }
+
+        .project-card {
+            background: #f8fafc;
+            padding: 1.2rem 1.2rem 1.5rem;
+            border-radius: 16px;
+            transition: background var(--transition), transform var(--transition);
+            border: 1px solid #e9edf4;
+        }
+
+        .project-card:hover {
+            background: #f1f5f9;
+            transform: translateY(-4px);
+        }
+
+        .project-card h4 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .project-card p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 0.6rem;
+        }
+
+        .project-card a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .project-card a i {
+            margin-left: 4px;
+            transition: margin var(--transition);
+        }
+
+        .project-card a:hover i {
+            margin-left: 10px;
+        }
+
+        /* ----- 联系方式 ----- */
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 0.8rem 0 0.2rem;
+        }
+
+        .contact-btn {
+            background: var(--accent);
+            color: white;
+            padding: 0.6rem 1.8rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: background var(--transition), transform var(--transition);
+        }
+
+        .contact-btn:hover {
+            background: #1d4ed8;
+            transform: scale(1.02);
+        }
+
+        .contact-btn.outline {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .contact-btn.outline:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* ----- 页脚 ----- */
+        .footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            font-size: 0.85rem;
+            color: var(--gray);
+            border-top: 1px solid #e2e8f0;
+            padding-top: 1.8rem;
+        }
+
+        /* ----- 响应式微调 ----- */
+        @media (max-width: 600px) {
+            .profile {
+                flex-direction: column;
+                text-align: center;
+            }
+            .profile-info h1 {
+                font-size: 1.8rem;
+            }
+            .socials {
+                justify-content: center;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-links {
+                justify-content: center;
+            }
+            .card {
+                padding: 1.8rem 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="card">
+
+            <!-- ====== 头部个人信息 ====== -->
+            <div class="profile">
+                <div class="avatar">👤</div>
+                <div class="profile-info">
+                    <h1>张三</h1>
+                    <div class="tagline">✨ 全栈开发 · 创意设计</div>
+                    <span class="badge"><i class="fas fa-map-pin"></i> 深圳 · 中国</span>
+                    <div class="socials">
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="博客"><i class="fas fa-blog"></i></a>
+                        <a href="mailto:example@email.com" aria-label="邮件"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ====== 关于我 ====== -->
+            <div class="section-title">
+                <i class="fas fa-user-astronaut"></i> 关于我
+            </div>
+            <p class="about-text">
+                你好！我是张三，一名热爱构建优雅产品的全栈开发者。
+                擅长 Vue.js、React 以及云原生技术。空闲时喜欢写技术博客、参与开源项目，并持续探索前沿的 Web 体验。
+            </p>
+
+            <!-- ====== 技能 ====== -->
+            <div class="section-title">
+                <i class="fas fa-code"></i> 技术栈
+            </div>
+            <div class="skills">
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">TypeScript</span>
+                <span class="skill-tag">React</span>
+                <span class="skill-tag">Vue</span>
+                <span class="skill-tag">Node.js</span>
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">Docker</span>
+                <span class="skill-tag">AWS</span>
+            </div>
+
+            <!-- ====== 项目 ====== -->
+            <div class="section-title">
+                <i class="fas fa-folder-open"></i> 精选项目
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h4>📊 数据看板</h4>
+                    <p>实时数据可视化仪表盘，使用 D3 + Vue。</p>
+                    <a href="#">查看项目 <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="project-card">
+                    <h4>🌐 个人博客</h4>
+                    <p>基于 Next.js + Tailwind 的静态博客系统。</p>
+                    <a href="#">查看项目 <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="project-card">
+                    <h4>📱 移动应用</h4>
+                    <p>React Native 开发的跨平台记账工具。</p>
+                    <a href="#">查看项目 <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- ====== 联系我 ====== -->
+            <div class="section-title">
+                <i class="fas fa-paper-plane"></i> 联系我
+            </div>
+            <div class="contact-links">
+                <a href="mailto:example@email.com" class="contact-btn">
+                    <i class="fas fa-envelope"></i> 发送邮件
+                </a>
+                <a href="#" class="contact-btn outline">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="#" class="contact-btn outline">
+                    <i class="fab fa-twitter"></i> Twitter
+                </a>
+            </div>
+
+            <!-- ====== 页脚 ====== -->
+            <div class="footer">
+                &copy; 2026 张三 · 用 <i class="fas fa-heart" style="color: #ef4444;"></i> 制作
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 可选的小交互 (目前仅占位) -->
+    <script>
+        console.log('欢迎访问我的个人主页！');
+    </script>
+</body>
+</html>
